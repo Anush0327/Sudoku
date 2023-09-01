@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sudoku Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+            align-items: center;
+        }
+        .grid-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        padding: 10px;
+        width: 30px;
+        height: 30px;
+        font-size: 10px;
+        text-align: center;
+        }
+        input{
+            width: 20px;
+            height: 20px;
+        }
+        input[type=submit]{
+            width: auto;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sudoku Game</h1>
+    <form  method="post" action="#" th:action="@{/sudoku}" th:object="${sudokuForm}">
+        <div class="container" >
+            <div class="grid-item" th:each="tile, iterStat : *{tiles}">
+                <input type="hidden" name="row" th:field="*{tiles[__${iterStat.index}__].sudokuRow}">
+                <input type="hidden" name="col" th:field="*{tiles[__${iterStat.index}__].sudokuCol}"> 
+                <input type="hidden" name="id" th:field="*{tiles[__${iterStat.index}__].id}">
+                <input  type="text" name="tile" th:field="*{tiles[__${iterStat.index}__].value}">
+            </div>
+        </div>
+        <input type="submit" name="submit" value="submit">
+    </form>
+</body>
+</html>
